@@ -1,0 +1,37 @@
+
+<h1 class="uk-heading-small">Todo</h1>
+<p class="uk-article-meta">This component demonstrates a Todo feature.</p>
+<div class="uk-margin">
+  <form class="todoform">
+    <div class="uk-inline uk-width-1-1">
+      <span class="uk-form-icon" uk-icon="icon: plus"></span>
+      <input type="text"
+             class="uk-input"
+             placeholder="Nova tarefa..."
+             [(ngModel)]="descricao" (change)="addTodo()" [ngModelOptions]="{standalone: true}" />
+    </div>
+  </form>
+
+  <hr />
+  <div *ngFor="let t of todos">
+    <div class="uk-card uk-card-hover  uk-card-small  uk-card-body">
+
+      <fieldset class="uk-fieldset" *ngIf="t.id==this.Editando">
+        <div class="uk-inline uk-width-1-1" #editForm>
+          <span class="uk-form-icon" uk-icon="icon: pencil"></span>
+          <input type="text" #editTodo autoFocus
+                 class="uk-input "
+                 [(ngModel)]="t.description" (change)="salvar(t.id,t.description)" [ngModelOptions]="{standalone: true}" />
+        </div>
+      </fieldset>
+
+      <span *ngIf="t.id!=this.Editando">
+        <input type="checkbox" [(ngModel)]="t.done" (click)="doneTodo(t.id)" class="uk-checkbox" style="margin-top:0;" />
+        <span (click)="editar(t.id)" [class.tododone]="t.done">{{t.description}}</span>
+      </span>
+    </div>
+  </div>
+  <hr />
+  <p class="uk-article-meta">Tarefa(s): <span class="uk-badge">{{todos.length}}</span></p>
+</div>
+
